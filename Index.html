@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 3 Project Report | Password Cracking with JTR & Networkwalks Tools</title>
+    <style>
+        :root {
+            --primary: #c41e3a;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --accent: #0f3460;
+            --success: #198754;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f0f2f5;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, var(--dark), var(--accent));
+            color: white;
+            padding: 35px 25px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+        }
+        header p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 18px;
+            font-size: 0.9rem;
+        }
+        .meta span {
+            background: rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 20px;
+        }
+        .content {
+            padding: 25px 20px;
+        }
+        h2 {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 8px;
+            margin: 28px 0 16px;
+            font-size: 1.3rem;
+        }
+        h3 {
+            color: var(--accent);
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+        }
+        p, li {
+            margin-bottom: 10px;
+        }
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+        .flag-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 14px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #856404;
+            word-break: break-all;
+        }
+        .success {
+            background: #d1e7dd;
+            border-left: 5px solid var(--success);
+            padding: 14px 16px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            color: #0f5132;
+        }
+        .tool-card {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 18px;
+            margin: 16px 0;
+        }
+        .tool-card h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 0.95rem;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background: var(--dark);
+            color: white;
+        }
+        tr:nth-child(even) { background: #f8f9fa; }
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            font-size: 0.85rem;
+        }
+        code {
+            background: #eee;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Password Cracking with JTR & Networkwalks Tools</h1>
+            <p>Week 3 | Project Module 1 & Module 2</p>
+            <div class="meta">
+                <span><strong>Student:</strong> Tongdiya Nancwat Bendal</span>
+                <span><strong>Kali User:</strong> codertech</span>
+                <span><strong>Date:</strong> 21 December 2025</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <h2>1. Introduction</h2>
+            <p>
+                This report documents the successful completion of <strong>Week 3 Project Modules</strong> focused on 
+                <strong>Password Recovery / Password Cracking</strong>. The objective was to recover the password of a 
+                protected PDF file (<code>My Locked PDF1.pdf</code>) using two different methods:
+            </p>
+            <ul>
+                <li><strong>Module 1:</strong> John the Ripper (JTR) with Johnny GUI</li>
+                <li><strong>Module 2:</strong> Networkwalks free online tools (Hash Calculator + Password Cracker)</li>
+            </ul>
+            <p>
+                These labs demonstrate how security professionals test password strength and why weak passwords pose a significant risk.
+            </p>
+
+            <h2>2. Tools Used</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tool</th>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John the Ripper (JTR)</td>
+                        <td>Offline</td>
+                        <td>Password cracking engine</td>
+                    </tr>
+                    <tr>
+                        <td>Johnny</td>
+                        <td>GUI</td>
+                        <td>Graphical interface for JTR</td>
+                    </tr>
+                    <tr>
+                        <td>Networkwalks Hash Calculator</td>
+                        <td>Online</td>
+                        <td>Extract crackable hash from PDF</td>
+                    </tr>
+                    <tr>
+                        <td>Networkwalks Password Cracker</td>
+                        <td>Online</td>
+                        <td>Dictionary attack against PDF hash</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>3. Module 1 – Password Cracking with John the Ripper (JTR) & Johnny</h2>
+            
+            <div class="tool-card">
+                <h4>Steps Performed</h4>
+                <ol>
+                    <li>Downloaded and installed <strong>John the Ripper</strong> and <strong>Johnny GUI</strong> on Windows.</li>
+                    <li>Configured Johnny to point to the <code>john.exe</code> executable.</li>
+                    <li>Extracted the PDF password hash using an online PDF hash extractor.</li>
+                    <li>Saved the full hash (starting with <code>\( pdf \)</code>) into a text file named <code>hash1.txt</code>.</li>
+                    <li>Opened the hash file in Johnny via <strong>Open password file</strong>.</li>
+                    <li>Started a new attack (dictionary mode).</li>
+                    <li>Johnny successfully cracked the password.</li>
+                </ol>
+            </div>
+
+            <div class="success">
+                <strong>Result:</strong> Password successfully cracked → <code>password1</code>
+            </div>
+
+            <div class="flag-box">
+                Flag Captured: nw{networkwalks_persistence_jtr_270521}
+            </div>
+
+            <h2>4. Module 2 – Password Cracking with Networkwalks Free Tools</h2>
+
+            <div class="tool-card">
+                <h4>Steps Performed</h4>
+                <ol>
+                    <li>Downloaded the encrypted PDF file <code>My Locked PDF1.pdf</code>.</li>
+                    <li>Opened the <strong>Networkwalks Hash Calculator</strong>.</li>
+                    <li>Uploaded the locked PDF. The tool extracted a crackable hash starting with <code>\( pdf \)</code>.</li>
+                    <li>Copied the complete hash value.</li>
+                    <li>Opened the <strong>Networkwalks Password Cracker</strong>.</li>
+                    <li>Pasted the hash and started a dictionary attack.</li>
+                    <li>The tool successfully matched the correct password.</li>
+                    <li>Used the recovered password to unlock the original PDF file.</li>
+                </ol>
+            </div>
+
+            <div class="success">
+                <strong>Result:</strong> Password successfully cracked → <code>password1</code>
+            </div>
+
+            <div class="flag-box">
+                Flag Captured: nw{networkwalks_flag_260821_1}
+            </div>
+
+            <h2>5. Key Observations & Lessons Learned</h2>
+            <ul>
+                <li>Common and simple passwords (such as <code>password1</code>) can be recovered very quickly using dictionary attacks.</li>
+                <li>Hash extraction is the critical first step before any cracking attempt.</li>
+                <li>Both offline tools (JTR/Johnny) and online tools (Networkwalks) produced the same correct result.</li>
+                <li>This exercise highlights the real-world importance of using strong, unique passwords and enabling multi-factor authentication (MFA).</li>
+                <li>Understanding password cracking techniques is essential for ethical hackers and security testers.</li>
+            </ul>
+
+            <h2>6. Conclusion</h2>
+            <p>
+                Both Project Modules were completed successfully. The password of the protected PDF was recovered using 
+                <strong>John the Ripper (Johnny)</strong> and the <strong>Networkwalks Hash Calculator + Password Cracker</strong>.
+                The practical experience reinforced the difference between weak and strong passwords and the value of proper 
+                security hygiene.
+            </p>
+
+            <h2>7. Submission Details</h2>
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Student Name</td>
+                    <td>Tongdiya Nancwat Bendal</td>
+                </tr>
+                <tr>
+                    <td>Kali Username</td>
+                    <td>codertech</td>
+                </tr>
+                <tr>
+                    <td>Project</td>
+                    <td>Week 3 – Password Cracking (JTR + Networkwalks Tools)</td>
+                </tr>
+                <tr>
+                    <td>Submission Date</td>
+                    <td>21 December 2025</td>
+                </tr>
+                <tr>
+                    <td>Cracked Password</td>
+                    <td><code>password1</code></td>
+                </tr>
+            </table>
+        </div>
+
+        <footer>
+            Prepared by Tongdiya Nancwat Bendal | Networkwalks Cybersecurity Training<br>
+            Week 3 Project Module 1 & 2 | Password Cracking with JTR & Networkwalks Tools
+        </footer>
+    </div>
+</body>
+</html>
